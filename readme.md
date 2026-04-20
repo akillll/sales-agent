@@ -21,7 +21,7 @@ This project simulates a real-world AI sales system where:
 * **LangGraph** — Agent orchestration & state management
 * **OpenAI API** — LLM for reasoning, generation, classification
 * **Langfuse** — Observability & tracing
-* **SQLAlchemy + SQLite** — Persistence & memory
+* **SQLAlchemy + SQL** — Persistence & memory
 * **Pydantic** — Request validation
 
 ---
