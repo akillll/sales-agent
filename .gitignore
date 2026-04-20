@@ -71,3 +71,7 @@ dist/
 
 # Node (if you have frontend inside project)
 node_modules/
+
+#chroma
+chroma/
+*.sqlite3

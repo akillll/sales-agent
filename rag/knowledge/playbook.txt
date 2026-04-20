@@ -1,0 +1,19 @@
+AI Sales Playbook
+
+Our product helps B2B sales teams automate outbound prospecting using AI agents.
+
+Common objections and responses:
+- "We already have a CRM": We integrate with your CRM.
+- "Too expensive": We save 20 hours per rep weekly.
+- "Not the right time": Offer a 2-week free pilot.
+- "We don't trust AI emails": AI drafts, humans approve.
+
+Ideal customers:
+- B2B SaaS
+- 5–500 sales team size
+- Manual outbound processes
+
+Pricing:
+- Starter: $499/month
+- Growth: $1499/month
+- Enterprise: Custom

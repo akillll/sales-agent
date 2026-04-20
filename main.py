@@ -6,6 +6,8 @@ from schemas import ProspectRequest, ReplyRequest
 from services.llm import stream_llm
 from db.models import SessionLocal, Prospect, Interaction
 from db.init_db import init_db
+from rag.chain import ask as rag_ask
+from pydantic import BaseModel
 
 app = FastAPI()
 init_db()
@@ -95,3 +97,10 @@ async def handle_reply(req: ReplyRequest):
         "classification": result.get("classification"),
     }
 
+class RAGQuery(BaseModel):
+    question: str
+
+@app.post("/ask")
+async def ask_knowledge_base(query: RAGQuery):
+    result = await asyncio.to_thread(rag_ask, query.question)
+    return result
