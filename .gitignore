@@ -73,5 +73,5 @@ dist/
 node_modules/
 
 #chroma
-chroma/
+chroma_db/
 *.sqlite3
