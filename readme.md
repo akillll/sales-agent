@@ -37,6 +37,8 @@ Client → FastAPI → LangGraph Agent
                      ↓
         [Reply Classifier Node]
                      ↓
+        [Connected RAG Context]
+                     ↓
         ┌────────────┬────────────┬────────────┐
         ↓            ↓            ↓
    Objection     Positive     Neutral
@@ -61,6 +63,8 @@ Client → FastAPI → LangGraph Agent
 
 * **Streaming responses** (real-time email generation)
 * **Conversation memory** (DB-backed history)
+* RAG-based enrichment using vector search (ChromaDB)
+* Connected RAG pipeline for context-aware response generation
 * **Retry + timeout handling** for LLM reliability
 * **Structured outputs** using OpenAI JSON mode
 * **Langfuse tracing** for observability
@@ -233,12 +237,24 @@ AgentState = {
   name,
   company,
   enrichment,
+  rag_context,
   email,
   reply,
   response,
   history
 }
 ```
+
+---
+
+## 🔍 Retrieval-Augmented Generation (RAG)
+
+The system enhances LLM responses using Retrieval-Augmented Generation (RAG) to provide more accurate and context-aware outputs.
+
+### 🔹 Standard RAG
+- Uses vector embeddings to retrieve relevant context
+- Stores documents in a vector database (e.g., ChromaDB)
+- Injects retrieved context into prompts before LLM execution
 
 ---
 
@@ -267,6 +283,7 @@ LangGraph routes based on reply classification:
 * AI agent orchestration using LangGraph
 * Real-world LLM pipeline design
 * Structured output handling
+* RAG and Connected RAG pipeline design
 * Observability & tracing
 * Backend system design for AI applications
 
