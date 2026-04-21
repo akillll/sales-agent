@@ -5,6 +5,7 @@ from agent.prompts import (
     reply_classification_prompt,
     objection_prompt
 )
+from rag.retriever import get_retriever
 from services.observability import observe
 
 @observe(name="enrich_node")
@@ -46,7 +47,7 @@ def objection_node(state):
     History: {state.get('history')}
     """
 
-    state["response"] = call_llm(objection_prompt(context, state["reply"]))
+    state["response"] = call_llm(objection_prompt(context, state["reply"], state.get("rag_context", "")))
     return state
 
 @observe(name="positive_node")
@@ -62,3 +63,26 @@ def neutral_node(state):
         f"Respond casually and continue conversation.\nReply: {state['reply']}"
     )
     return state 
+
+@observe(name="rag_node")
+def rag_node(state):
+    print("➡️ rag_node")
+
+    retriever = get_retriever(k=3)
+
+    if state.get("reply"):
+        query = state["reply"]
+    else:
+        query = f"""
+        Generate sales context for:
+        Company: {state['company']}
+        Industry: {state['enrichment'].get('industry')}
+        Pain Points: {state['enrichment'].get('pain_points')}
+        """
+    docs = retriever.invoke(query)
+
+    context = "\n\n".join(doc.page_content for doc in docs)
+
+    state["rag_context"] = context
+
+    return state

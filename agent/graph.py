@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph
 from agent.nodes import (
     enrich_node,
+    rag_node,
     email_node,
     classify_reply_node,
     objection_node,
@@ -14,6 +15,7 @@ def build_graph():
     graph = StateGraph(AgentState)
 
     graph.add_node("enrich", enrich_node)
+    graph.add_node("rag", rag_node)
     graph.add_node("email", email_node)
     graph.add_node("classify", classify_reply_node)
     graph.add_node("objection", objection_node)
@@ -22,7 +24,8 @@ def build_graph():
 
     graph.set_entry_point("enrich")
 
-    graph.add_edge("enrich", "email")
+    graph.add_edge("enrich", "rag")
+    graph.add_edge("rag", "email")
     graph.add_edge("email", "classify")
     
     graph.add_conditional_edges(

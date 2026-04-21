@@ -25,7 +25,10 @@ Role: {data['enrichment']['role']}
 Industry: {data['enrichment']['industry']}
 Pain Points: {data['enrichment']['pain_points']}
 
-Keep it short, human, and engaging.
+Product Knowledge:
+{data.get('rag_context', '')}
+
+Keep it short, human, and engaging. Use product knowledge if relevant
 """
 
 
@@ -43,7 +46,7 @@ Return JSON:
 """
 
 
-def objection_prompt(context, reply):
+def objection_prompt(context, reply, rag_context):
     return f"""
 Handle this objection:
 
@@ -52,5 +55,8 @@ Reply: {reply}
 Context:
 {context}
 
-Be polite, acknowledge concern, and re-engage.
+Product Knowledge:
+{rag_context}
+
+Be polite, acknowledge concern, and re-engage. Use knowledge base to respond and Address objection clearly.
 """
