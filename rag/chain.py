@@ -47,12 +47,8 @@ def build_rag_chain():
     return chain
 
 def ask(question: str):
-    retriever = get_retriever(k=3)
+
     chain = build_rag_chain()
-
-    docs = retriever.invoke(question)
-
-    print(f"Retrieved {len(docs)} docs")
 
     answer = chain.invoke(
         question,
@@ -60,6 +56,5 @@ def ask(question: str):
     )
 
     return {
-        "answer": answer,
-        "sources": [doc.page_content for doc in docs]
+        "answer": answer
     }
